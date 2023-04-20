@@ -50,13 +50,13 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-7 mb-lg">
+          <div class="col-lg-4 mb-lg">
             <!-- line chart -->
             <div class="card z-index-2">
               <gradient-line-chart />
             </div>
           </div>
-          <div class="col-lg-5">
+          <div class="col-lg-8">
             <carousel />
           </div>
         </div>
@@ -132,7 +132,7 @@ export default {
     return {
       stats: {
         money: {
-          title: "Today's Money",
+          title: "Creditos aprobados",
           value: "$53,000",
           percentage: "+55%",
           iconClass: "ni ni-money-coins",
@@ -140,8 +140,8 @@ export default {
           iconBackground: "bg-gradient-primary",
         },
         users: {
-          title: "Today's Users",
-          value: "2,300",
+          title: "Cursos Matriculados",
+          value: "3",
           percentage: "+3%",
           iconClass: "ni ni-world",
           iconBackground: "bg-gradient-danger",
