@@ -1,9 +1,8 @@
 <template>
     <div class="row d-flex justify-content-center">
         <div v-if="assignaments.length > 0" class="card col-sm-8 text-center">
-            <div class="card-header">AVANCE CURRICULAR</div>
             <div class="card-body">
-                <h5 class="card-title">Escuela Profesional: {{ studentData.EscuelaProfesional }}t</h5>
+                <h5 class="card-title">Escuela Profesional: {{ studentData.EscuelaProfesional }}</h5>
                 <h4 class="card-title">Alumno: {{ studentData.Alumno }}</h4>
                 <div class="pgbar">
                     <ProgressBar :bgcolor="'#6a1b9a'" :completed=enrolledCredits @click="showAlert"></ProgressBar>
@@ -37,14 +36,17 @@
                     </section>
                 </div>
             </div>
-            <div class="card-footer text-muted">2 days ago</div>
+            <div class="card-footer text-muted">Ponderado: </div>
         </div>
         <div v-if="assignaments.length == 0" class="card col-sm-7 text-center">
-            <div class="card-header">AVANCE CURRICULAR</div>
             <div class="card-body">
-
+                <div class="mb-3 text-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer text-muted">2 days ago</div>
+            <div class="card-footer text-muted">Ponderado: </div>
         </div>
     </div>
 </template>
@@ -106,9 +108,7 @@ export default {
                 const record = await axios.get('https://pdfapi-a7a4.onrender.com/curricula?ep=FIIS');
                 this.setRecordToList(record.data)
 
-                console.log();
                 const response = await axios.post('https://pdfapi-a7a4.onrender.com/notas', credentials, { 'Content-Type': 'application/json' });
-                console.log(response.data);
                 this.totalCredits = response.data.TC;
                 this.studentData = response.data
                 this.assignaments = response.data.Asignaturas;
@@ -122,7 +122,6 @@ export default {
         progressValues(ca, cm) {
             this.approvedCredits = ((ca / this.totalCredits) * 100).toFixed(2);
             this.enrolledCredits = (((ca + cm) / this.totalCredits) * 100).toFixed(2);
-            console.log(this.enrolledCredits);
         },
         setRecordToList(record) {
             const values = Object.values(record.data);
@@ -154,7 +153,6 @@ export default {
                 e.cursos.map(f => {
                     this.electives.forEach((value, index) => {
                         if (f.class == 'E' + (index + 1)) {
-                            console.log(value);
                             f.aprobado = true;
                         }
                     });

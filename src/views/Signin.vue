@@ -102,7 +102,7 @@ export default {
       }
       try {
         const response = await axios.post('https://pdfapi-a7a4.onrender.com/auth', credentials, { 'Content-Type': 'application/json' });
-        console.log(response.status);
+        console.log(response.data);
         this.saveSession(response.data.Code)
         this.$router.push('/dashboard-default');
       } catch (error) {

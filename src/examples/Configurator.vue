@@ -6,8 +6,7 @@
     <div class="shadow-lg card">
       <div class="pt-3 pb-0 bg-transparent card-header">
         <div class="" :class="this.$store.state.isRTL ? 'float-end' : 'float-start'">
-          <h5 class="mt-3 mb-0">Argon Configurator</h5>
-          <p>See our dashboard options.</p>
+          <h5 class="mt-3 mb-0">Configuraciones</h5>
         </div>
         <div class="mt-4" @click="toggle" :class="this.$store.state.isRTL ? 'float-start' : 'float-end'">
           <button class="p-0 btn btn-link text-dark fixed-plugin-close-button">
@@ -20,7 +19,7 @@
       <div class="pt-0 card-body pt-sm-3">
         <!-- Sidebar Backgrounds -->
         <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
+          <h6 class="mb-0">Items activos del menu</h6>
         </div>
         <a href="#" class="switch-trigger background-color">
           <div class="my-2 badge-colors" :class="this.$store.state.isRTL ? 'text-end' : ' text-start'">
@@ -35,41 +34,10 @@
         </a>
         <!-- Sidenav Type -->
         <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
+          <h6 class="mb-0">Temas</h6>
         </div>
-        <div class="d-flex gap-2">
-          <button id="btn-white" class="btn w-100 px-3 mb-2" :class="
-            this.$store.state.sidebarType === 'bg-white'
-              ? 'bg-gradient-success'
-              : 'btn-outline-success'
-          " @click="sidebarType('bg-white')">
-            White
-          </button>
-          <button id="btn-dark" class="btn w-100 px-3 mb-2" :class="
-            this.$store.state.sidebarType === 'bg-default'
-              ? 'bg-gradient-success'
-              : 'btn-outline-success'
-          " @click="sidebarType('bg-default')">
-            Dark
-          </button>
-        </div>
-        <p class="mt-2 text-sm d-xl-none d-block">
-          You can change the sidenav type just on desktop view.
-        </p>
-        <!-- Navbar Fixed -->
-        <!-- Navbar Fixed -->
-        <div class="mt-3 d-flex">
-          <h6 class="mb-0">Navbar Fixed</h6>
-          <div class="form-check form-switch ps-0 ms-auto my-auto">
-            <input class="mt-1 form-check-input" :class="
-              this.$store.state.isRTL ? 'float-end  me-auto' : ' ms-auto'
-            " type="checkbox" id="navbarFixed" :checked="this.$store.state.isNavFixed" @click="setNavbarFixed" />
-          </div>
-        </div>
-
-        <hr class="horizontal dark my-4" />
-        <div class="mt-2 mb-5 d-flex">
+        <hr class="horizontal dark my-2" />
+        <div class="mt-1 mb-5 d-flex">
           <h6 class="mb-0" :class="this.$store.state.isRTL ? 'ms-2' : ''">
             Light / Dark
           </h6>
@@ -134,8 +102,8 @@ export default {
   },
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
-    window.addEventListener("resize", this.sidenavTypeOnResize);
-    window.addEventListener("load", this.sidenavTypeOnResize);
+    //window.addEventListener("resize", this.sidenavTypeOnResize);
+    //window.addEventListener("load", this.sidenavTypeOnResize);
   }
 };
 </script>

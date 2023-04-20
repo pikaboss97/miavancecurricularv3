@@ -8,18 +8,13 @@
       <div class="mt-2 collapse navbar-collapse mt-sm-0 me-md-0 me-sm-4 justify-content-end"
         :class="this.$store.state.isRTL ? 'px-0' : 'me-sm-4'" id="navbar">
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-            <a href="#" @click="toggleSidebar" class="p-0 nav-link text-white" id="iconNavbarSidenav">
+          <li class="nav-item d-xl-none px-3 d-flex align-items-center">
+            <a href="#" @click="openMenu" class="p-0 nav-link text-white" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
               </div>
-            </a>
-          </li>
-          <li class="px-3 nav-item d-flex align-items-center">
-            <a class="p-0 nav-link text-white" @click="toggleConfigurator">
-              <i class="cursor-pointer fa fa-cog fixed-plugin-button-nav"></i>
             </a>
           </li>
           <li class="nav-item dropdown d-flex align-items-center" :class="this.$store.state.isRTL ? 'ps-2' : 'pe-2'">
@@ -140,6 +135,10 @@ export default {
     logOut(){
       localStorage.clear();
       this.$router.push('/signin');
+    },
+    openMenu(){
+      let app = document.getElementById("app");
+      app.classList.add("g-sidenav-pinned")
     }
   },
   components: {

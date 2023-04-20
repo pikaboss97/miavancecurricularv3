@@ -4,49 +4,24 @@
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.money.title"
-              :value="stats.money.value"
-              :percentage="stats.money.percentage"
-              :iconClass="stats.money.iconClass"
-              :iconBackground="stats.money.iconBackground"
-              :detail="stats.money.detail"
-              directionReverse
-            ></card>
+            <card :title="stats.money.title" :value="stats.money.value" :percentage="stats.money.percentage"
+              :iconClass="stats.money.iconClass" :iconBackground="stats.money.iconBackground" :detail="stats.money.detail"
+              directionReverse></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.users.title"
-              :value="stats.users.value"
-              :percentage="stats.users.percentage"
-              :iconClass="stats.users.iconClass"
-              :iconBackground="stats.users.iconBackground"
-              :detail="stats.users.detail"
-              directionReverse
-            ></card>
+            <card :title="stats.users.title" :value="stats.users.value" :percentage="stats.users.percentage"
+              :iconClass="stats.users.iconClass" :iconBackground="stats.users.iconBackground" :detail="stats.users.detail"
+              directionReverse></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.clients.title"
-              :value="stats.clients.value"
-              :percentage="stats.clients.percentage"
-              :iconClass="stats.clients.iconClass"
-              :iconBackground="stats.clients.iconBackground"
-              :percentageColor="stats.clients.percentageColor"
-              :detail="stats.clients.detail"
-              directionReverse
-            ></card>
+            <card :title="stats.clients.title" :value="stats.clients.value" :percentage="stats.clients.percentage"
+              :iconClass="stats.clients.iconClass" :iconBackground="stats.clients.iconBackground"
+              :percentageColor="stats.clients.percentageColor" :detail="stats.clients.detail" directionReverse></card>
           </div>
           <div class="col-lg-3 col-md-6 col-12">
-            <card
-              :title="stats.sales.title"
-              :value="stats.sales.value"
-              :percentage="stats.sales.percentage"
-              :iconClass="stats.sales.iconClass"
-              :iconBackground="stats.sales.iconBackground"
-              :detail="stats.sales.detail"
-              directionReverse
-            ></card>
+            <card :title="stats.sales.title" :value="stats.sales.value" :percentage="stats.sales.percentage"
+              :iconClass="stats.sales.iconClass" :iconBackground="stats.sales.iconBackground" :detail="stats.sales.detail"
+              directionReverse></card>
           </div>
         </div>
         <div class="row">
@@ -116,6 +91,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 import Card from "@/examples/Cards/Card.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
 import Carousel from "./components/Carousel.vue";
@@ -130,39 +106,40 @@ export default {
   name: "dashboard-default",
   data() {
     return {
+      user:{},
       stats: {
         money: {
           title: "Creditos aprobados",
-          value: "$53,000",
+          value: '',
           percentage: "+55%",
           iconClass: "ni ni-money-coins",
-          detail: "since yesterday",
+          detail: " del total de creditos",
           iconBackground: "bg-gradient-primary",
         },
         users: {
-          title: "Cursos Matriculados",
+          title: "Creditos Matriculados",
           value: "3",
-          percentage: "+3%",
+          percentage: "",
           iconClass: "ni ni-world",
           iconBackground: "bg-gradient-danger",
-          detail: "since last week",
+          detail: " del total de creditos",
         },
         clients: {
-          title: "New Clients",
-          value: "+3,462",
-          percentage: "-2%",
+          title: "Electivos cursados",
+          value: "",
+          percentage: "20%",
           iconClass: "ni ni-paper-diploma",
-          percentageColor: "text-danger",
+          percentageColor: "text-success",
           iconBackground: "bg-gradient-success",
-          detail: "since last quarter",
+          detail: "",
         },
         sales: {
-          title: "Sales",
-          value: "$103,430",
-          percentage: "+5%",
+          title: "Creditos pendientes",
+          value: "",
+          percentage: "",
           iconClass: "ni ni-cart",
           iconBackground: "bg-gradient-warning",
-          detail: "than last month",
+          detail: " del total",
         },
       },
       sales: {
@@ -197,11 +174,29 @@ export default {
       },
     };
   },
+  methods: {
+    async getUserData() {
+      const response = await axios.get('https://pdfapi-a7a4.onrender.com/getUser?code='+JSON.parse(localStorage.getItem('user')).code);
+      this.user = response.data;
+      this.stats.money.value=this.user.ca;
+      this.stats.money.percentage = ((this.user.ca / this.user.tc) * 100).toFixed(2)+"% cursado";
+      this.stats.users.value = this.user.cm;
+      this.stats.users.percentage =" Cursando el " + (((this.user.cm + this.user.ca ) / this.user.tc) * 100).toFixed(2)+"% ";
+      this.stats.clients.value = this.user.ea;
+      this.stats.clients.percentage = ((this.user.ea / 4)*100).toFixed(2)+'% cursados';
+      this.stats.sales.value = (this.user.tc - (this.user.cm+this.user.ca));
+      this.stats.sales.percentage = (((this.user.tc - (this.user.ca+this.user.cm))/this.user.tc)*100).toFixed(2)+"%";
+
+    }
+  },
   components: {
     Card,
     GradientLineChart,
     Carousel,
     CategoriesCard,
   },
+  async mounted() {
+    await this.getUserData();
+  }
 };
 </script>
