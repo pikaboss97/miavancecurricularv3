@@ -25,8 +25,8 @@
             </div>
             <div class="col-auto my-auto">
               <div class="h-100">
-                <h5 class="mb-1">Sayo Kravits</h5>
-                <p class="mb-0 font-weight-bold text-sm">Public Relations</p>
+                <h5 class="mb-1"> {{ user.username }}</h5>
+                <p class="mb-0 font-weight-bold text-sm">{{ user.facultad }}</p>
               </div>
             </div>
             <div
@@ -293,6 +293,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import ProfileCard from "./components/ProfileCard.vue";
@@ -305,15 +306,22 @@ export default {
   name: "profile",
   data() {
     return {
-      showMenu: false
+      showMenu: false,
+      user:{} 
     };
   },
   components: { ProfileCard, ArgonInput, ArgonButton },
-
+  methods:{
+    async getUserData(){
+      const response = await axios.get('https://pdfapi-a7a4.onrender.com/getUser?code='+JSON.parse(localStorage.getItem('user')).code);
+      this.user = response.data;
+    }
+  },
   mounted() {
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();
+    this.getUserData();
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";
