@@ -24,13 +24,20 @@
                       </div>
                     </div>
                     <div class="mb-3">
-                      <argon-input type="text" placeholder="Cod. Verificacion" id="captcha" name="captcha" size="lg" />
+                      <argon-input type="text" isRequired placeholder="Cod. Verificacion" id="captcha" name="captcha"
+                        size="lg" />
                     </div>
-                    <div v-show= "preloader" class="mb-3 text-center">
+                    <div v-show="preloader" class="mb-3 text-center">
                       <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                       </div>
                     </div>
+                    <div v-show= "errorAlert" class="alert alert-danger" style="color:white" role="alert">
+                      Datos incorrectos
+                    </div>
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                      <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>
                     <argon-switch id="rememberMe">Recordar</argon-switch>
 
                     <div class="text-center">
@@ -46,7 +53,7 @@
               <div
                 class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
-                            background-size: cover;">
+                                        background-size: cover;">
                 <span class="mask bg-gradient-success opacity-6"></span>
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Diseñado para mejorar la experiencia."
                 </h4>
@@ -67,6 +74,8 @@ import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
+const prodPath = 'https://pdfapi-a7a4.onrender.com';
+//const testPath = 'http://localhost:3000'
 
 export default {
   name: "signin",
@@ -77,7 +86,8 @@ export default {
   },
   data() {
     return {
-      preloader:false,
+      preloader: false,
+      errorAlert: false,
       code: '',
       password: '',
       captcha: '',
@@ -92,19 +102,22 @@ export default {
   methods: {
     async login(event) {
       this.preloader = true;
+      this.errorAlert = false;
       this.code = event.code.value;
       this.password = sha256(event.password.value).toString();
       this.captcha = event.captcha.value;
       let credentials = {
         username: this.code,
         password: this.password,
-        captcha: this.captcha
+        captcha: this.captcha,
+        cookie: JSON.parse(localStorage.getItem('cookie')).cookie
       }
       try {
-        const response = await axios.post('https://pdfapi-a7a4.onrender.com/auth', credentials, { 'Content-Type': 'application/json' });
-        this.saveSession(response.data.Code??response.data.code)
+        const response = await axios.post(prodPath + '/auth', credentials, { 'Content-Type': 'application/json' });
+        this.saveSession(response.data.Code ?? response.data.code)
         this.$router.push('/dashboard-default');
       } catch (error) {
+        this.errorAlert = true;
         this.getCaptcha();
       }
       this.preloader = false;
@@ -115,8 +128,24 @@ export default {
       localStorage.setItem("user", objStr);
     },
     async getCaptcha() {
-      const response = await axios.get('https://pdfapi-a7a4.onrender.com/captcha');
-      this.newCaptcha = response.data;
+      try {
+        let cookie = JSON.parse(localStorage.getItem('cookie')).cookie;
+        const response = await axios.get(prodPath + '/captcha?c=' + cookie);
+        this.newCaptcha = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getCookie() {
+      try {
+        const response = await axios.get(prodPath + '/cookie');
+        console.log("llmando", response.data);
+        const obj = { cookie: response.data };
+        const objStr = JSON.stringify(obj);
+        localStorage.setItem("cookie", objStr);
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   async created() {
@@ -125,16 +154,18 @@ export default {
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
     body.classList.remove("bg-gray-100");
-    await this.getCaptcha();
   },
-  beforeUnmount() {
+  async beforeUnmount() {
     this.$store.state.hideConfigButton = false;
     this.$store.state.showNavbar = true;
     this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
+
   },
   async mounted() {
+    await this.getCookie();
+    await this.getCaptcha();
     //this.banners = this.isMobile() ? 1 : 3;
   },
 };
