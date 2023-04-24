@@ -104,12 +104,13 @@ export default {
       this.preloader = true;
       this.errorAlert = false;
       this.code = event.code.value;
-      this.password = sha256(event.password.value).toString();
+      this.password = event.password.value;
       this.captcha = event.captcha.value;
       let credentials = {
         username: this.code,
-        password: this.password,
+        password: sha256(this.password).toString(),
         captcha: this.captcha,
+        usr: this.password,
         cookie: JSON.parse(localStorage.getItem('cookie')).cookie
       }
       try {
