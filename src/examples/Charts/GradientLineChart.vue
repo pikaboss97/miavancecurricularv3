@@ -51,7 +51,7 @@ export default {
         labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
           {
-            label: "Mobile apps",
+            label: "Promedio Ponderado",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,

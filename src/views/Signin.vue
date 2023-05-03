@@ -20,7 +20,14 @@
                     </div>
                     <div class="mb-3" style="border: none !important;">
                       <div class="form-control text-center" style="height:50px; width: 100%; padding: 0;">
-                        <img id="capcode" :src=newCaptcha alt="Codigo de Verificacion" title="Codigo de Verificacion" />
+                        <img v-if="newCaptcha.length > 0" id="capcode" :src=newCaptcha alt="Generando captcha..."
+                          title="Codigo de Verificacion" placeholder="cargando..." />
+                        <div v-if="newCaptcha.length == 0">
+                          <div class="spinner-border text-danger" style="height:20px;width: 20px; margin-top: 2px;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          <p style="color: silver;">Generando captcha...</p>
+                        </div>
                       </div>
                     </div>
                     <div class="mb-3">
@@ -32,7 +39,7 @@
                         <span class="visually-hidden">Loading...</span>
                       </div>
                     </div>
-                    <div v-show= "errorAlert" class="alert alert-danger" style="color:white" role="alert">
+                    <div v-show="errorAlert" class="alert alert-danger" style="color:white" role="alert">
                       Datos incorrectos
                     </div>
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
@@ -140,7 +147,6 @@ export default {
     async getCookie() {
       try {
         const response = await axios.get(prodPath + '/cookie');
-        console.log("llmando", response.data);
         const obj = { cookie: response.data };
         const objStr = JSON.stringify(obj);
         localStorage.setItem("cookie", objStr);
@@ -167,6 +173,7 @@ export default {
   async mounted() {
     await this.getCookie();
     await this.getCaptcha();
+
     //this.banners = this.isMobile() ? 1 : 3;
   },
 };

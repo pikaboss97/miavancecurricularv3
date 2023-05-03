@@ -28,7 +28,8 @@
           <div class="col-lg-4 mb-lg">
             <!-- line chart -->
             <div class="card z-index-2">
-              <gradient-line-chart />
+             <!--  <gradient-line-chart /> -->
+             <consumption-room-chart />
             </div>
           </div>
           <div class="col-lg-8">
@@ -93,7 +94,8 @@
 <script>
 import axios from 'axios';
 import Card from "@/examples/Cards/Card.vue";
-import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
+//import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
+import ConsumptionRoomChart from '../examples/Charts/ConsumptionRoomChart.vue';
 import Carousel from "./components/Carousel.vue";
 import CategoriesCard from "./components/CategoriesCard.vue";
 
@@ -191,7 +193,8 @@ export default {
   },
   components: {
     Card,
-    GradientLineChart,
+    ConsumptionRoomChart,
+    //GradientLineChart,
     Carousel,
     CategoriesCard,
   },
