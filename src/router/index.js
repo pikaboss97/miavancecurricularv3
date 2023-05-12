@@ -12,14 +12,14 @@ import Signin from "../views/Signin.vue";
 const routes = [
   {
     path: "/",
-    name: "/",
+    name: "Dashboard.",
     component: Dashboard,
     meta: {
       requiresAuth: true // esta ruta requiere autenticación
     }
   },
   {
-    path: "/dashboard-default",
+    path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
     meta: {

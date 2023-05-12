@@ -1,6 +1,6 @@
 <template>
     <div class="py-4 container-fluid">
-        <div class="row d-flex justify-content-center mt-8">
+        <div class="row d-flex justify-content-center">
             <div class="col-lg-12">
                 <div class="col-lg-12">
                     <RecordCard />

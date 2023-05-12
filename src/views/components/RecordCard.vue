@@ -8,7 +8,7 @@
                     <ProgressBar :bgcolor="'#6a1b9a'" :completed=enrolledCredits @click="showAlert"></ProgressBar>
                     <font-awesome-icon @click="showAlert" icon="fa-solid fa-graduation-cap" size="2xl" />
                 </div>
-                <div class="record_card">
+                <div>
                     <section :id="'sec_' + semester.codigo" v-for="semester in SEMESTERS_SECTIONS" :key="semester.codigo">
                         <div class="row no-gutters">
                             <div class="col-12">
@@ -276,10 +276,6 @@ export default {
     margin: 10px;
 }
 
-.record_card {
-    border: 2px solid;
-    border-color: #ffffff;
-}
 
 .carousel_container {
     margin-left: 2px;

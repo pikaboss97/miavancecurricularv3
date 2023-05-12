@@ -7,7 +7,7 @@ export default createStore({
     showConfig: false,
     sidebarType: "bg-white",
     isRTL: false,
-    mcolor: "",
+    mcolor: "card-background-mask-success",
     darkMode: false,
     isNavFixed: false,
     isAbsolute: false,

@@ -78,11 +78,13 @@ export default {
       if (this.$store.state.darkMode) {
         this.$store.state.darkMode = false;
         this.$store.state.sidebarType = "bg-white";
+        this.sidebarColor('success');
         deactivateDarkMode();
         return;
       } else {
         this.$store.state.darkMode = true;
         this.$store.state.sidebarType = "bg-default";
+        this.sidebarColor('primary');
         activateDarkMode();
       }
     },

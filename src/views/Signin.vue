@@ -123,7 +123,7 @@ export default {
       try {
         const response = await axios.post(prodPath + '/auth', credentials, { 'Content-Type': 'application/json' });
         this.saveSession(response.data.Code ?? response.data.code)
-        this.$router.push('/dashboard-default');
+        this.$router.push('/dashboard');
       } catch (error) {
         this.errorAlert = true;
         this.getCaptcha();

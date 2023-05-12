@@ -6,10 +6,9 @@
           <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
         </div>
       </div>
-      <h6 class="mt-4 mb-0 me-2">المستخدمين النشطين</h6>
+      <h6 class="mt-4 mb-0 me-2"> Gastos Academicos </h6>
       <p class="text-sm me-2">
-        (
-        <span class="font-weight-bolder">+23%</span>) من الأسبوع الماضي
+        <br>
       </p>
       <div class="container border-radius-lg">
         <div class="row">

@@ -2,10 +2,18 @@
   <div class="collapse navbar-collapse w-auto h-auto h-100" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item" @click="closeMenu()">
-        <sidenav-item url="/dashboard-default" :class="getRoute() === 'dashboard-default' ? 'active' : ''"
+        <sidenav-item url="/dashboard" :class="getRoute() === 'dashboard-default' ? 'active' : ''"
           :navText="this.$store.state.isRTL ? 'لوحة القيادة' : 'Dashboard'">
           <template v-slot:icon>
             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item" @click="closeMenu()">
+        <sidenav-item url="/matriculados" :class="getRoute() === 'record-default' ? 'active' : ''"
+          :navText="this.$store.state.isRTL ? 'لوحة القيادة' : 'Cursos Matriculados'">
+          <template v-slot:icon>
+            <i class="ni ni-books text-primary text-sm opacity-10"></i>
           </template>
         </sidenav-item>
       </li>

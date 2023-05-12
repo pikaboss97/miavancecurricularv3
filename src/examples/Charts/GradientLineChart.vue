@@ -21,7 +21,6 @@ import Chart from "chart.js/auto";
 
 export default {
   name: "gradient-line-chart",
-
   props: {
     title: {
       type: String,
@@ -35,32 +34,32 @@ export default {
       type: String,
       default: "in 2021",
     },
+    range:{
+      type: Array,
+      default: () => (["2016","2017","2018","2019","2020"]) 
+    }
   },
 
   mounted() {
     var ctx1 = document.getElementById("chart-line").getContext("2d");
-
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
     gradientStroke1.addColorStop(1, "rgba(94, 114, 228, 0.2)");
     gradientStroke1.addColorStop(0.2, "rgba(94, 114, 228, 0.0)");
     gradientStroke1.addColorStop(0, "rgba(94, 114, 228, 0)");
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: this.$props.range,
         datasets: [
           {
             label: "Promedio Ponderado",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#4BB543 ",
+            tension: 0.2,
+            pointRadius: 8,
+            borderColor: "#40adff ",
             backgroundColor: gradientStroke1,
-            // eslint-disable-next-line no-dupe-keys
             borderWidth: 3,
             fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            data: [11.56, 11.16, 10.67, 12.00, 11.82, 12.64, 11.63, 12.63, 13.55, 11.17, 11.00, 13.00, 8.67],
             maxBarThickness: 6,
           },
         ],
@@ -70,45 +69,45 @@ export default {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: false,
+            display: true,
           },
         },
         interaction: {
-          intersect: false,
+          intersect: true,
           mode: "index",
         },
         scales: {
           y: {
             grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
+              color: (context) => {
+                if(context.tick.value == 11) return '#f54021';
+              },
             },
             ticks: {
               display: true,
               padding: 10,
-              color: "#fbfbfb",
+              color: "#ffff",
               font: {
                 size: 11,
                 family: "Open Sans",
                 style: "normal",
                 lineHeight: 2,
               },
+              max: 20,
+              min: 0
             },
           },
           x: {
             grid: {
-              drawBorder: false,
-              display: false,
+              drawBorder: true,
+              display: true,
               drawOnChartArea: false,
               drawTicks: false,
               borderDash: [5, 5],
             },
             ticks: {
               display: true,
-              color: "#ccc",
+              color: "#ffff",
               padding: 20,
               font: {
                 size: 11,
