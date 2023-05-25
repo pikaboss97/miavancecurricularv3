@@ -30,7 +30,7 @@ import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
 
 const slotSlides=[
-  //{id:'christmas', url:`${ASSETS_URL}/casino/images/banner/christmasv1.png`},
+  {id:"casino_slots",url: require('@/assets/img/banner.png') },
   {id:'spaceman', url:`https://d2zzz5z45zl95g.cloudfront.net/casino/images/banner/bannerv19.png`},
   {id:'aviator', url:`https://d2zzz5z45zl95g.cloudfront.net/casino/images/banner/bannerv18.png`},
   {id:"peaky_blinder",url:`https://d2zzz5z45zl95g.cloudfront.net/casino/images/banner/bannerv17.png`},
@@ -69,6 +69,7 @@ export default {
   },
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
+
   }
 };
 </script>

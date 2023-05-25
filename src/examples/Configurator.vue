@@ -104,6 +104,7 @@ export default {
   },
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
+    this.setDarkMode();
     //window.addEventListener("resize", this.sidenavTypeOnResize);
     //window.addEventListener("load", this.sidenavTypeOnResize);
   }
