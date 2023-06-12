@@ -100,12 +100,13 @@ export default {
     },
     methods: {
         async fetchData() {
+            const user =JSON.parse(localStorage.getItem('user'));
             const credentials = {
-                username: JSON.parse(localStorage.getItem('user')).code,
+                username: user.code,
             };
             try {
                 this.cleanConstSections();
-                const record = await axios.get('https://pdfapi-a7a4.onrender.com/curricula?ep=FIIS');
+                const record = await axios.get('https://pdfapi-a7a4.onrender.com/curricula?ep=FIIS&v='+user.year);
                 this.setRecordToList(record.data)
 
                 const response = await axios.post('https://pdfapi-a7a4.onrender.com/notas', credentials, { 'Content-Type': 'application/json' });

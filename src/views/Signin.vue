@@ -82,7 +82,7 @@ import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
 const prodPath = 'https://pdfapi-a7a4.onrender.com';
-//const testPath = 'http://localhost:3000'
+//const prodPath = 'http://localhost:3000'
 
 export default {
   name: "signin",
@@ -122,7 +122,7 @@ export default {
       }
       try {
         const response = await axios.post(prodPath + '/auth', credentials, { 'Content-Type': 'application/json' });
-        this.saveSession(response.data.Code ?? response.data.code)
+        this.saveSession(response.data.Code ?? response.data.code, response.data.year)
         this.$router.push('/dashboard');
       } catch (error) {
         this.errorAlert = true;
@@ -130,8 +130,8 @@ export default {
       }
       this.preloader = false;
     },
-    saveSession(code) {
-      const obj = { id: 1, code: code };
+    saveSession(code, year) {
+      const obj = { id: 1, code: code, year };
       const objStr = JSON.stringify(obj);
       localStorage.setItem("user", objStr);
     },
