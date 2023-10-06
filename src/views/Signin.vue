@@ -82,7 +82,7 @@ import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
 const prodPath = 'https://pdfapi-a7a4.onrender.com';
-//const prodPath = 'http://localhost:3000'
+//const prodPath = 'http://192.168.1.51:3000'
 
 export default {
   name: "signin",
@@ -125,7 +125,11 @@ export default {
         this.saveSession(response.data.Code ?? response.data.code, response.data.year)
         this.$router.push('/dashboard');
       } catch (error) {
-        this.errorAlert = true;
+        if(error.response.status == 423) {
+          this.showAlert("Por el momento la plataforma solo se encuentra disponible para la facultad de Sistemas en la curricula actual...");
+        }else{
+          this.errorAlert = true;
+        }
         this.getCaptcha();
       }
       this.preloader = false;
@@ -153,7 +157,15 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    showAlert(msg) {
+            this.$swal.fire({
+                title: 'Ocurrió un error...',
+                icon: 'info',
+                text: msg,
+                footer: '<a href="">Estamos trabajando para ofrecerte nuevas funcionalidades</a>'
+            })
+        }
   },
   async created() {
     this.$store.state.hideConfigButton = true;

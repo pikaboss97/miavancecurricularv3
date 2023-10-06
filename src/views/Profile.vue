@@ -1,7 +1,6 @@
 <template>
-  <main>
+  <main style="margin-top: 6rem;">
     <div class="container-fluid">
-
       <div class="card shadow-lg mt-n6">
         <div class="card-body p-3">
           <div class="row gx-4">
@@ -309,16 +308,16 @@ export default {
     }
   },
   mounted() {
-    this.$store.state.isAbsolute = true;
+    this.$store.state.isAbsolute = false;
     setNavPills();
     setTooltip();
     this.getUserData();
   },
   beforeMount() {
     this.$store.state.imageLayout = "profile-overview";
-    this.$store.state.showNavbar = false;
+    this.$store.state.showNavbar = true;
     this.$store.state.showFooter = true;
-    this.$store.state.hideConfigButton = true;
+    this.$store.state.hideConfigButton = false;
     body.classList.add("profile-overview");
   },
   beforeUnmount() {

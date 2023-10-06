@@ -6,8 +6,7 @@
           <div class="text-sm text-center copyright text-muted"
             :class="this.$store.state.isRTL ? 'text-lg-end' : 'text-lg-start'">
             ©
-            {{ new Date().getFullYear() }}, desarrollado
-            <i class="fa fa-heart"></i> por
+            {{ new Date().getFullYear() }}, desarrollado por
             <a href="https://www.instagram.com/d_i_e_g_o._.v_e_g_a/" class="font-weight-bold" target="_blank">Diego
               Vega</a>
             para una mejor experiencia.

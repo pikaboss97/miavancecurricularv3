@@ -49,7 +49,7 @@
                   </g>
                 </svg>
               </div>
-              <p class="mt-1 mb-0 text-xs font-weight-bold">المستخدمون</p>
+              <p class="mt-1 mb-0 text-xs font-weight-bold"> Matricula</p>
             </div>
             <h4 class="font-weight-bolder">36K</h4>
             <div class="progress w-75">
@@ -108,7 +108,7 @@
                   </g>
                 </svg>
               </div>
-              <p class="mt-1 mb-0 text-xs font-weight-bold">نقرات</p>
+              <p class="mt-1 mb-0 text-xs font-weight-bold"> Comedor</p>
             </div>
             <h4 class="font-weight-bolder">2m</h4>
             <div class="progress w-75">
@@ -158,7 +158,7 @@
                   </g>
                 </svg>
               </div>
-              <p class="mt-1 mb-0 text-xs font-weight-bold">مبيعات</p>
+              <p class="mt-1 mb-0 text-xs font-weight-bold"> Internado</p>
             </div>
             <h4 class="font-weight-bolder">435$</h4>
             <div class="progress w-75">
@@ -213,7 +213,7 @@
                   </g>
                 </svg>
               </div>
-              <p class="mt-1 mb-0 text-xs font-weight-bold">العناصر</p>
+              <p class="mt-1 mb-0 text-xs font-weight-bold"> Total</p>
             </div>
             <h4 class="font-weight-bolder">43</h4>
             <div class="progress w-75">

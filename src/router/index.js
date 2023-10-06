@@ -87,7 +87,7 @@ const routes = [
   // Catch-all route for non-existing routes
   {
     path: '/:catchAll(.*)',
-    component: Profile,
+    component: Dashboard,
     meta: {
       requiresAuth: true // esta ruta requiere autenticación
     }

@@ -18,16 +18,22 @@
                             </div>
                             <div class="circle-container">
                                 <div v-for="(item, index) in semester.cursos" :key="index">
-                                    <div v-if="item.matriculado" class="enrolled_curse">
+                                    <div v-if="item.matriculado" :id="item.codigo" class="enrolled_curse"
+                                        @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)" @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
                                         <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
                                     </div>
-                                    <div v-if="!item.aprobado && item.nota && !item.matriculado" class="failed_curse">
+                                    <div v-if="!item.aprobado && item.nota && !item.matriculado" :id="item.codigo"
+                                        class="failed_curse" @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)"
+                                        @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
                                         <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
                                     </div>
-                                    <div v-if="item.aprobado" class="aproved_curse">
+                                    <div v-if="item.aprobado" :id="item.codigo" class="aproved_curse"
+                                        @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)" @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
                                         <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
                                     </div>
-                                    <div v-if="item && !item.matriculado && !item.aprobado && !item.nota" class="circle">
+                                    <div v-if="item && !item.matriculado && !item.aprobado && !item.nota" :id="item.codigo"
+                                        class="circle" @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)"
+                                        @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
                                         <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
                                     </div>
                                 </div>
@@ -100,16 +106,18 @@ export default {
     },
     methods: {
         async fetchData() {
-            const user =JSON.parse(localStorage.getItem('user'));
+            const remoteApiUrl = 'https://pdfapi-a7a4.onrender.com';
+            //const localApiUrl = 'http://192.168.1.51:3000'
+            const user = JSON.parse(localStorage.getItem('user'));
             const credentials = {
                 username: user.code,
             };
             try {
                 this.cleanConstSections();
-                const record = await axios.get('https://pdfapi-a7a4.onrender.com/curricula?ep=FIIS&v='+user.year);
+                const record = await axios.get(remoteApiUrl + '/curricula?ep=FIIS&v=' + user.year);
                 this.setRecordToList(record.data)
 
-                const response = await axios.post('https://pdfapi-a7a4.onrender.com/notas', credentials, { 'Content-Type': 'application/json' });
+                const response = await axios.post(remoteApiUrl + '/notas', credentials, { 'Content-Type': 'application/json' });
                 this.totalCredits = response.data.TC;
                 this.studentData = response.data
                 this.assignaments = response.data.Asignaturas;
@@ -147,6 +155,25 @@ export default {
                 })
 
             })
+        },
+        showPrerequisites(courses) {
+            if (courses.length > 0) {
+                courses.forEach((course) => {
+                    let item = document.getElementById(course)
+                    if(!course.includes("creditos")){
+                        item.classList.add("pre-req");
+                    }
+                })
+            }
+        },
+        hiddenPrerequisites(courses) {
+            if (courses.length > 0) {
+                courses.forEach((course) => {
+                    if(!course.includes("creditos")){
+                        document.getElementById(course).classList.remove("pre-req");
+                    }
+                })
+            }
         },
         setElectivesStudied() {
             this.electives = this.assignaments.filter(curso => { return curso.electivo });
@@ -259,6 +286,10 @@ export default {
 .aproved_curse:hover {
     background-color: #de7a17;
 }
+.pre-req {
+    background-color: #682786 !important;
+    color: white;
+}
 
 .circle-container {
     display: flex;
@@ -322,6 +353,7 @@ export default {
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
+
     .circle {
         display: flex;
         align-items: center;
@@ -398,6 +430,5 @@ export default {
         max-width: 100%;
         max-height: 100%;
     }
-}
-</style>
+}</style>
   

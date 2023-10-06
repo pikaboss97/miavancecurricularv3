@@ -6,7 +6,7 @@
         <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
           <a href="javascript:;">
             <img
-              src="https://media.licdn.com/dms/image/C4E03AQGxhrY7c7qM8A/profile-displayphoto-shrink_800_800/0/1583657197223?e=1687392000&v=beta&t=SsCa1NdEi-e_7kwmSJmKEJu_yS71zny5TyCXoPndU1E"
+              src="https://media.licdn.com/dms/image/C4E03AQGxhrY7c7qM8A/profile-displayphoto-shrink_800_800/0/1583657197223?e=2147483647&v=beta&t=qUldMG4m9rKpy2mbaqXhlHFH7llb0MsFjaOYuNq6fTs"
               class="rounded-circle img-fluid border border-2 border-white"
             />
           </a>

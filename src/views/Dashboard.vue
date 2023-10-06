@@ -143,8 +143,16 @@ export default {
       this.stats.users.percentage = " Cursando el " + (((this.user.cm + this.user.ca) / this.user.tc) * 100).toFixed(2) + "% ";
       this.stats.clients.value = this.user.ea;
       this.stats.clients.percentage = ((this.user.ea / 4) * 100).toFixed(2) + '% cursados';
-      this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca));
-      this.stats.sales.percentage = (((this.user.tc - (this.user.ca + this.user.cm)) / this.user.tc) * 100).toFixed(2) + "%";
+      
+      if (this.user.PPP.split("-")[0] > 0) {
+        this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP;
+        this.stats.sales.percentage = (((this.user.tc - (this.user.ca + this.user.cm)) / this.user.tc) * 100).toFixed(2) + "%";
+      } else if(this.user.PPP.split("-")[0] == 0){
+        this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP.split("-")[1] == 0 ? " ( PPP "+ this.user.PPP.split("-")[1] +"C ) ":(this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP.split("-")[1] + " + (PPP "+ this.user.PPP.split("-")[1] +"C) ";
+        this.stats.sales.percentage = (((this.user.tc - (this.user.ca + this.user.cm)) / this.user.tc) * 100).toFixed(2) + "%";
+      }else{
+        console.log("el usuario no cuenta con ppp en su malla actual");
+      }
 
     }
   },
