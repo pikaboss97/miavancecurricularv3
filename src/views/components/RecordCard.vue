@@ -5,8 +5,8 @@
                 <h5 class="card-title">Escuela Profesional: {{ studentData.EscuelaProfesional }}</h5>
                 <h4 class="card-title">Alumno: {{ studentData.Alumno }}</h4>
                 <div class="pgbar">
-                    <ProgressBar :bgcolor="'#6a1b9a'" :completed=enrolledCredits @click="showAlert"></ProgressBar>
-                    <font-awesome-icon @click="showAlert" icon="fa-solid fa-graduation-cap" size="2xl" />
+                    <ProgressBar :bgcolor="'#6a1b9a'" :completed=enrolledCredits></ProgressBar>
+                    <font-awesome-icon  icon="fa-solid fa-graduation-cap" size="2xl" />
                 </div>
                 <div>
                     <section :id="'sec_' + semester.codigo" v-for="semester in SEMESTERS_SECTIONS" :key="semester.codigo">
@@ -201,12 +201,12 @@ export default {
             console.log(mobile);
             return mobile;
         },
-        showAlert() {
+        showAlert(msg) {
             this.$swal.fire({
-                title: 'Resumen',
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: 'Custom image',
+                title: 'Importante...',
+                icon: 'info',
+                text: msg,
+                footer: '<a href="">Estamos trabajando para ofrecerte nuevas funcionalidades</a>'
             })
         }
 
@@ -214,6 +214,7 @@ export default {
     async mounted() {
         this.banners = this.isMobile() ? 1 : 3;
         await this.fetchData();
+        this.showAlert("¡Hola! Esta es la primera versión de nuestra plataforma de gestión curricular. Por favor, ten en cuenta que podrían surgir errores inesperados como fallas en las convalidaciones de los cursos o errores con los codigos de los mismos. Tu feedback es valioso para nosotros, así que si encuentras alguna anomalía, no dudes en informarnos. ¡Gracias por tu comprensión y colaboración!")
     },
 }
 </script>

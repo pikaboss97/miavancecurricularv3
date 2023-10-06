@@ -23,7 +23,8 @@
                         <img v-if="newCaptcha.length > 0" id="capcode" :src=newCaptcha alt="Generando captcha..."
                           title="Codigo de Verificacion" placeholder="cargando..." />
                         <div v-if="newCaptcha.length == 0">
-                          <div class="spinner-border text-danger" style="height:20px;width: 20px; margin-top: 2px;" role="status">
+                          <div class="spinner-border text-danger" style="height:20px;width: 20px; margin-top: 2px;"
+                            role="status">
                             <span class="visually-hidden">Loading...</span>
                           </div>
                           <p style="color: silver;">Generando captcha...</p>
@@ -125,9 +126,9 @@ export default {
         this.saveSession(response.data.Code ?? response.data.code, response.data.year)
         this.$router.push('/dashboard');
       } catch (error) {
-        if(error.response.status == 423) {
+        if (error.response.status == 423) {
           this.showAlert("Por el momento la plataforma solo se encuentra disponible para la facultad de Sistemas en la curricula actual...");
-        }else{
+        } else {
           this.errorAlert = true;
         }
         this.getCaptcha();
@@ -159,13 +160,13 @@ export default {
       }
     },
     showAlert(msg) {
-            this.$swal.fire({
-                title: 'Ocurrió un error...',
-                icon: 'info',
-                text: msg,
-                footer: '<a href="">Estamos trabajando para ofrecerte nuevas funcionalidades</a>'
-            })
-        }
+      this.$swal.fire({
+        title: 'Ocurrió un error...',
+        icon: 'info',
+        text: msg,
+        footer: '<a href="">Estamos trabajando para ofrecerte nuevas funcionalidades</a>'
+      })
+    }
   },
   async created() {
     this.$store.state.hideConfigButton = true;
