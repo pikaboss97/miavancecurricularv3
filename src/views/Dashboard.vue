@@ -145,7 +145,7 @@ export default {
       this.stats.clients.percentage = ((this.user.ea / 4) * 100).toFixed(2) + '% cursados';
       
       if (this.user.PPP.split("-")[0] > 0) {
-        this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP;
+        this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca));
         this.stats.sales.percentage = (((this.user.tc - (this.user.ca + this.user.cm)) / this.user.tc) * 100).toFixed(2) + "%";
       } else if(this.user.PPP.split("-")[0] == 0){
         this.stats.sales.value = (this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP.split("-")[1] == 0 ? " ( PPP "+ this.user.PPP.split("-")[1] +"C ) ":(this.user.tc - (this.user.cm + this.user.ca)) - this.user.PPP.split("-")[1] + " + (PPP "+ this.user.PPP.split("-")[1] +"C) ";

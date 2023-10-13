@@ -20,21 +20,21 @@
                                 <div v-for="(item, index) in semester.cursos" :key="index">
                                     <div v-if="item.matriculado" :id="item.codigo" class="enrolled_curse"
                                         @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)" @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
-                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
+                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}<br>{{ item.creditos }}C</span>
                                     </div>
                                     <div v-if="!item.aprobado && item.nota && !item.matriculado" :id="item.codigo"
                                         class="failed_curse" @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)"
                                         @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
-                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
+                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}<br>{{ item.creditos }}C</span>
                                     </div>
                                     <div v-if="item.aprobado" :id="item.codigo" class="aproved_curse"
                                         @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)" @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
-                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
+                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}<br>{{ item.creditos }}C</span>
                                     </div>
                                     <div v-if="item && !item.matriculado && !item.aprobado && !item.nota" :id="item.codigo"
                                         class="circle" @mouseover="showPrerequisites(item.req)" @mouseleave="hiddenPrerequisites(item.req)"
                                         @touchstart="showPrerequisites(item.req)" @touchend="showPrerequisites(item.req)">
-                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}</span>
+                                        <span class="circle-text">{{ item.nombre }}<br>{{ item.codigo }}<br>{{ item.creditos }}C</span>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,8 @@ export default {
             })
         },
         showPrerequisites(courses) {
-            if (courses.length > 0) {
+            console.log(courses);
+            if (courses && courses.length > 0) {
                 courses.forEach((course) => {
                     let item = document.getElementById(course)
                     if(!course.includes("creditos")){
@@ -167,7 +168,7 @@ export default {
             }
         },
         hiddenPrerequisites(courses) {
-            if (courses.length > 0) {
+            if (courses && courses.length > 0) {
                 courses.forEach((course) => {
                     if(!course.includes("creditos")){
                         document.getElementById(course).classList.remove("pre-req");
@@ -176,11 +177,12 @@ export default {
             }
         },
         setElectivesStudied() {
-            this.electives = this.assignaments.filter(curso => { return curso.electivo });
+            this.electives = this.assignaments.filter(curso => { return curso.electivo && curso.aprobado});
+            //console.log(this.electives);
             this.SEMESTERS_SECTIONS.map(e => {
                 e.cursos.map(f => {
                     this.electives.forEach((value, index) => {
-                        if (f.class == 'E' + (index + 1)) {
+                        if (f.class == 'E' + (index + 1) && value.aprobado) {
                             f.aprobado = true;
                         }
                     });
@@ -351,6 +353,9 @@ export default {
     padding: 20px;
     margin: 0 auto 10px;
 }
+.circle-text {
+    margin:10px;
+}
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
@@ -370,7 +375,9 @@ export default {
         border: 1px solid;
         border-color: rgba(41, 40, 40, 0.675);
     }
-
+    .circle-text {
+        margin:10px;
+    }
     .aproved_curse {
         display: flex;
         align-items: center;
